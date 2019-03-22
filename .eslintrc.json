@@ -1,0 +1,70 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "airbnb",
+        "prettier",
+        "prettier/react"
+    ], 
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+	"react-hooks",
+	"prettier"
+    ],
+    "rules": {
+	"flow-header/flow-header": "warn",
+        "prettier/prettier": [
+            "error",
+            {
+                "singleQuote": true,
+                "trailingComma": "all",
+                "tabWidth": 4
+            }
+        ],
+        "prefer-destructuring": [
+            "error",
+            {
+                "array": false,
+                "object": true
+            }
+        ],
+        "jsx-a11y/click-events-have-key-events": ["warn"],
+        "jsx-a11y/anchor-is-valid": [
+            "error",
+            {
+                "components": ["Link"],
+                "specialLink": ["to"]
+            }
+        ],
+        "react/no-typos": ["off"],
+        "react/destructuring-assignment": ["off"],
+        "react/no-access-state-in-setstate": ["warn"],
+        "react/require-default-props": ["warn"],
+        "react/jsx-curly-brace-presence": ["error"],
+        "no-return-assign": ["error", "except-parens"],
+        "arrow-parens": "off",
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true
+            }
+        ],
+	"react-hooks/rules-of-hooks": "error",
+	"react-hooks/exhaustive-deps": "warn"
+    }
+}
