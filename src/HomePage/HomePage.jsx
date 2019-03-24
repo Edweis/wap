@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 import Post from './Post/Post';
 import PostCreator from './PostCreator/PostCreator';
 import postData from '../resources/data/posts';
@@ -15,6 +16,7 @@ export default function HomePage() {
                 <Grid item className="post-creator">
                     <PostCreator />
                 </Grid>
+                <Divider variant="middle" className="divider" />
                 <Grid item container className="posts" spacing={16}>
                     {postData.map(({ content, tags, number, author }) => (
                         <Grid item key={content + author}>
