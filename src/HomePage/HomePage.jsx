@@ -17,8 +17,9 @@ export default function HomePage() {
                 </Grid>
                 <Grid item container className="posts" spacing={16}>
                     {postData.map(({ content, tags, number, author }) => (
-                        <Grid item direction="column">
+                        <Grid item key={content + author}>
                             <Post
+                                key={content + author}
                                 content={content}
                                 tags={tags}
                                 number={number}

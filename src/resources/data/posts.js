@@ -433,8 +433,8 @@ const rawPosts = [
     [3, 'Use music to communicate and as a therapy', ['Art&Design'], 'Emma'],
 ];
 
-const posts: PostData = rawPosts.map(([numbers, content, tags, author]) => {
-    return { numbers, content, tags, author };
+const posts: PostData = rawPosts.map(([number, content, tags, author]) => {
+    return { number, content, tags, author };
 });
 
 export default posts;
