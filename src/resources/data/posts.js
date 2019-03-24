@@ -1,3 +1,6 @@
+// @flow
+import type { PostData } from '../types/posts';
+
 const rawPosts = [
     [1, 'Travel alone: see it for yourself!', ['Culture&Lifestyle'], 'Fanny'],
     [2, 'How can we develop "permaculture"', [' Wellness&Health'], 'Pierre'],
@@ -430,7 +433,7 @@ const rawPosts = [
     [3, 'Use music to communicate and as a therapy', ['Art&Design'], 'Emma'],
 ];
 
-const posts = rawPosts.map(([numbers, content, tags, author]) => {
+const posts: PostData = rawPosts.map(([numbers, content, tags, author]) => {
     return { numbers, content, tags, author };
 });
 

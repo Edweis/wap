@@ -1,0 +1,9 @@
+.root {
+    margin: auto;
+    max-width: 50%;
+    flex-grow: 1;
+
+    .posts > div {
+        width: 100%;
+    }
+}
