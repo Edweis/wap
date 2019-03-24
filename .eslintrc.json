@@ -24,7 +24,8 @@
     "plugins": [
         "react",
 	"react-hooks",
-	"prettier"
+	"prettier",
+	"flowtype"
     ],
     "rules": {
 	"flow-header/flow-header": "warn",
