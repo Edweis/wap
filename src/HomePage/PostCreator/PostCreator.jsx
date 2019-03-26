@@ -6,9 +6,28 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Chip from '@material-ui/core/Chip';
+import Add from '@material-ui/icons/Add';
+import type { PostData } from 'resources/types/posts';
 import './PostCreator.scss';
 
-export default function Post() {
+type Props = {
+    addTag: string => void,
+    removeTag: string => void,
+    setAuthor: string => void,
+    setContent: string => void,
+    submit: () => void,
+    newPost: PostData,
+};
+
+export default function Post(props: Props) {
+    const [currentTag, setCurrentTag] = React.setState('');
+
+    const changeContent = event => props.setContent(event.target.value);
+    const changeAuthor = event => props.setAuthor(event.target.value);
+    const changeCurrentTag = event => setCurrentTag(event.target.value);
+    const addTag = () => currentTag != null && props.addTag(currentTag);
     return (
         <Paper className="post-paper">
             <Grid container justify="center">
@@ -42,13 +61,37 @@ export default function Post() {
                                 fullwidth
                                 rows="5"
                                 variant="outlined"
+                                value={props.newPost.content}
+                                onChange={changeContent}
                             />
                         </Grid>
                         <Grid item>
+                            {props.newPost.tags.map(tag => (
+                                <Chip
+                                    key={tag}
+                                    label={tag}
+                                    onDelete={props.removeTag}
+                                    variant="outlined"
+                                />
+                            ))}
                             <TextField
                                 label="Add tag"
                                 placeholder="Economic..."
                                 variant="outlined"
+                                value={currentTag}
+                                onChange={changeCurrentTag}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="Add tag"
+                                                onClick={addTag}
+                                            >
+                                                <Add />
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
                             />
                         </Grid>
                     </Grid>
@@ -56,6 +99,8 @@ export default function Post() {
                         <TextField
                             label="Your name"
                             variant="outlined"
+                            value={props.newPost.author}
+                            onChange={changeAuthor}
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -68,7 +113,11 @@ export default function Post() {
                 </Grid>
                 {/* validation */}
                 <Grid item>
-                    <Button variant="contained" color="primary">
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={props.submit}
+                    >
                         Shoot
                     </Button>
                 </Grid>
