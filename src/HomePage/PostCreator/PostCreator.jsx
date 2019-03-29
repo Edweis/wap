@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -9,7 +10,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Chip from '@material-ui/core/Chip';
 import Add from '@material-ui/icons/Add';
-import type { PostData } from 'resources/types/posts';
+import type { PostData } from 'resources/type/posts';
 import './PostCreator.scss';
 
 type Props = {
@@ -21,13 +22,20 @@ type Props = {
     newPost: PostData,
 };
 
-export default function Post(props: Props) {
-    const [currentTag, setCurrentTag] = React.setState('');
+function PostCreator(props: Props) {
+    const [currentTag, setCurrentTag] = React.useState('');
 
     const changeContent = event => props.setContent(event.target.value);
     const changeAuthor = event => props.setAuthor(event.target.value);
     const changeCurrentTag = event => setCurrentTag(event.target.value);
-    const addTag = () => currentTag != null && props.addTag(currentTag);
+    const removeTag = (tag: string) => props.removeTag(tag);
+    const addTag = () => {
+        if (currentTag != null && currentTag.trim() !== '') {
+            props.addTag(currentTag);
+            setCurrentTag('');
+        }
+    };
+    const onTagKeyPress = e => e.key === 'Enter' && addTag();
     return (
         <Paper className="post-paper">
             <Grid container justify="center">
@@ -58,44 +66,49 @@ export default function Post(props: Props) {
                                 label="Content"
                                 placeholder="Koala freedom in Asia: an economical breakthrough..."
                                 multiline
-                                fullwidth
+                                fullWidth
                                 rows="5"
                                 variant="outlined"
                                 value={props.newPost.content}
                                 onChange={changeContent}
                             />
                         </Grid>
-                        <Grid item>
-                            {props.newPost.tags.map(tag => (
-                                <Chip
-                                    key={tag}
-                                    label={tag}
-                                    onDelete={props.removeTag}
+                        <Grid item container direction="column" xs={3}>
+                            <Grid item>
+                                <TextField
+                                    label="Add tag"
+                                    placeholder="Economic..."
                                     variant="outlined"
+                                    value={currentTag}
+                                    onChange={changeCurrentTag}
+                                    onKeyPress={onTagKeyPress}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="Add tag"
+                                                    onClick={addTag}
+                                                >
+                                                    <Add />
+                                                </IconButton>
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
-                            ))}
-                            <TextField
-                                label="Add tag"
-                                placeholder="Economic..."
-                                variant="outlined"
-                                value={currentTag}
-                                onChange={changeCurrentTag}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="Add tag"
-                                                onClick={addTag}
-                                            >
-                                                <Add />
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
+                            </Grid>
+                            <Grid item>
+                                {props.newPost.tags.map(tag => (
+                                    <Chip
+                                        key={tag}
+                                        label={tag}
+                                        onDelete={() => removeTag(tag)}
+                                        variant="outlined"
+                                    />
+                                ))}
+                            </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item wrap="nowrap">
+                    <Grid item>
                         <TextField
                             label="Your name"
                             variant="outlined"
@@ -125,3 +138,10 @@ export default function Post(props: Props) {
         </Paper>
     );
 }
+
+const mapState = state => ({ newPost: state.newPost });
+const mapDispatch = ({ newPost }) => ({ ...newPost });
+export default connect(
+    mapState,
+    mapDispatch,
+)(PostCreator);

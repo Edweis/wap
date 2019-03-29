@@ -5,13 +5,16 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
+    "@rematch/core": "^1.1.0",
     "flow-bin": "^0.95",
     "hookrouter": "^1.0.0-beta",
     "node-sass": "^4.11.0",
     "prettier": "^1.16.4",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-redux": "^6.0.1",
     "react-scripts": "2.1.8",
+    "redux": "^4.0.1",
     "typeface-roboto": "0.0.54"
   },
   "scripts": {
@@ -41,6 +44,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.5.1",
-    "flow-bin": "^0.95.1"
+    "flow-bin": "^0.95.1",
+    "redux-devtools": "^3.5.0"
   }
 }

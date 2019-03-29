@@ -1,17 +1,15 @@
 // @flow
 import * as React from 'react';
-import type { PostData } from 'resources/types/posts';
+import type { PostData } from 'resources/type/posts';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import './Post.scss';
 
-const setFilterTag = (tag: string) => {
-    console.info(`Setting ${tag} as filter`);
-};
+type Props = PostData & { addFiltterTag: string => void };
 
-export default function Post(props: PostData) {
+export default function Post(props: Props) {
     return (
         <Paper className="post-paper">
             <Grid container direction="column" alignItems="flex-end">
@@ -34,7 +32,7 @@ export default function Post(props: PostData) {
                                 <Chip
                                     key={tag}
                                     label={tag}
-                                    onClick={() => setFilterTag(tag)}
+                                    onClick={() => props.addFilterTag(tag)}
                                 />
                             ))}
                         </Typography>

@@ -1,10 +1,21 @@
+// @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { init } from '@rematch/core';
+import { Provider } from 'react-redux';
+import * as models from './models';
 import App from './App/App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = init({ models });
+
+const Root = () => (
+    <Provider store={store}>
+        <App />
+    </Provider>
+);
+ReactDOM.render(<Root />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
